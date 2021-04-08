@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WilliamsVacationPlanner.Models.Extensions
+namespace WilliamsVacationPlanner.Models
 {
 	/// <summary>
 	/// Holds extension methods for a string
