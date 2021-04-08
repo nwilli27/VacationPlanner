@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WilliamsVacationPlanner.Models.Database.Utility
+namespace WilliamsVacationPlanner.Models
 {
     /// <summary>
     /// Holds query options for a Vacation
@@ -19,7 +19,7 @@ namespace WilliamsVacationPlanner.Models.Database.Utility
         /// Appends Where & OrderBy clauses based on the given [builder].
         /// </summary>
         /// <param name="builder">The builder.</param>
-        public void SortFilter(VacationGridBuilder builder)
+        public void Sort(VacationGridBuilder builder)
         {
             if (builder.IsSortByLocation)
             {

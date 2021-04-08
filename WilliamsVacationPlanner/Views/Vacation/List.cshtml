@@ -1,0 +1,72 @@
+﻿@model VacationListViewModel
+
+@{
+    ViewData["title"] = "Vacations";
+
+    RouteDictionary current = Model.CurrentRoute;
+    RouteDictionary routes = Model.CurrentRoute.Clone();
+}
+
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @{ routes.SetSortAndDirection(nameof(Vacation.Location.Name), current);}
+                    <a asp-action="List" asp-all-route-data="@routes" class="text-white">Location</a>
+                </th>
+                <th>
+                    @{ routes.SetSortAndDirection(nameof(Vacation.StartDate), current);}
+                    <a asp-action="List" asp-all-route-data="@routes" class="text-white">Start Date</a>
+                </th>
+                <th>
+                    @{ routes.SetSortAndDirection(nameof(Vacation.EndDate), current);}
+                    <a asp-action="List" asp-all-route-data="@routes" class="text-white">End Date</a>
+                </th>
+                <th>
+                    @{ routes.SetSortAndDirection(nameof(Vacation.Accommodation.Name), current);}
+                    <a asp-action="List" asp-all-route-data="@routes" class="text-white">Accommodation</a>
+                </th>
+                <th>Things To Do</th>
+            </tr>
+        </thead>
+        @foreach (var vacation in @Model.Vacations)
+        {
+            <tr>
+                <td>@vacation.Location.Name</td>
+                <td>@vacation.StartDate.ToShortDateString()</td>
+                <td>@vacation.EndDate.ToShortDateString()</td>
+                <td>@vacation.Accommodation.Name</td>
+                <td>
+                    <ul class="list-unstyled">
+                        @foreach (var activity in @vacation.Activities)
+                        {
+                            <li>@activity.Activity.Name</li>
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+    </table>
+
+    @{
+        routes = Model.CurrentRoute.Clone();
+
+        for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            routes.PageNumber = i;
+            <a asp-action="List" asp-all-route-data="@routes"
+                class="btn btn-outline-primary @Nav.Active(i, current.PageNumber)">@i</a>
+        }
+    }
+
+    <form asp-action="PageSize" method="post" class="form-inline">
+        <label>Page Size: </label>
+        <select name="pagesize" class="form-control m-2" asp-items="@(new SelectList(Model.PageSizes, current.PageSize))">
+        </select>
+        <button type="submit" class="btn btn-primary mr-2">Apply</button>
+    </form>
+
+</div>
+
+

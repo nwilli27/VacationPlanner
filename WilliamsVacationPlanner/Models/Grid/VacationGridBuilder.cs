@@ -23,6 +23,17 @@ namespace WilliamsVacationPlanner.Models
 		public VacationGridBuilder(ISession sess) : base(sess) { }
 
 		/// <summary>
+		/// Initializes a new instance of the <see cref="VacationGridBuilder"/> class.
+		/// </summary>
+		/// <param name="sess">The sess.</param>
+		/// <param name="values">The values.</param>
+		/// <param name="defaultSortField">The default sort field.</param>
+		public VacationGridBuilder(ISession sess, GridDTO values, string defaultSortField)
+			: base(sess, values, defaultSortField)
+		{
+		}
+
+		/// <summary>
 		/// Gets a value indicating whether this instance is sort by location.
 		/// </summary>
 		/// <value>

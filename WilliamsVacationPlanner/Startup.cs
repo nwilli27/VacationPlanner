@@ -69,7 +69,6 @@ namespace WilliamsVacationPlanner
 			}
 			else
 			{
-				app.UseExceptionHandler("/Error");
 				app.UseHsts();
 			}
 
