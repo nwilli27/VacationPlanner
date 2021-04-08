@@ -47,6 +47,12 @@ namespace WilliamsVacationPlanner
 		{
 			services.AddRazorPages();
 
+			services.AddTransient<IVacationPlannerDataAccessor, VacationPlannerDataAccessor>();
+
+			services.AddHttpContextAccessor();
+			services.AddSession();
+			services.AddControllersWithViews().AddNewtonsoftJson();
+
 			services.AddDbContext<VacationPlannerContext>(options => options.UseSqlServer(this.Configuration.GetConnectionString("VacationPlannerContext")));
 		}
 
@@ -71,12 +77,13 @@ namespace WilliamsVacationPlanner
 			app.UseStaticFiles();
 
 			app.UseRouting();
+			app.UseSession();
 
 			app.UseAuthorization();
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllerRoute("default", "{controller=Trips}/{action=Index}/{id?}");
+				endpoints.MapControllerRoute("default", "{controller=Vacation}/{action=Index}/{id?}");
 			});
 		}
 	}

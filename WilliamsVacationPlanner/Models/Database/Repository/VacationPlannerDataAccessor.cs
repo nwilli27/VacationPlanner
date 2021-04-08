@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WilliamsVacationPlanner.Models.Database.Repository
+namespace WilliamsVacationPlanner.Models
 {
 	/// <summary>
 	/// Holds the implementation for the IVacationPlannerDataAccessor
