@@ -4,9 +4,10 @@
     ViewData["title"] = "Step 1 - New Vacation";
 }
 
-<h1 class="text-center">Add Location, Accommodation, and Dates</h1>
-
 <div class="container">
+
+    <h1 class="text-center">Add Location, Accommodation, and Dates</h1>
+
     <form asp-action="StepOne" method="post">
 
         <input type="hidden" asp-for="@Model.Vacation.VacationId" />
