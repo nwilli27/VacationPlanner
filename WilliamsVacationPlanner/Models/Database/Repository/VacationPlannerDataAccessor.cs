@@ -118,6 +118,20 @@ namespace WilliamsVacationPlanner.Models
 		/// </summary>
 		public void Save() => context.SaveChanges();
 
+		/// <summary>
+		/// Adds the vacation activities.
+		/// </summary>
+		/// <param name="vacation">The vacation.</param>
+		/// <param name="activityIds">The activity ids.</param>
+		public void AddVacationActivities(Vacation vacation, int[] activityIds)
+		{
+			foreach (int id in activityIds)
+			{
+				var vacationActivity = new VacationActivity { VacationId = vacation.VacationId, ActivityId = id };
+				VacationActivities.Insert(vacationActivity);
+			}
+		}
+
 		#endregion
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace WilliamsVacationPlanner.Models
 	/// Author: Nolan Williams
 	/// Date:	4/7/2021
 	/// </summary>
+	[VacationDateRange(ErrorMessage = "Please select a end date greater than or equal to the open date.")]
 	public class Vacation
 	{
 
@@ -28,6 +30,7 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The location identifier.
 		/// </value>
+		[Range(1, Int32.MaxValue, ErrorMessage = "Please select a Location.")]
 		public int LocationId { get; set; }
 
 		/// <summary>
@@ -44,6 +47,7 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The accommodation identifier.
 		/// </value>
+		[Range(1, Int32.MaxValue, ErrorMessage = "Please select a Accommodation.")]
 		public int? AccommodationId { get; set; }
 
 		/// <summary>
@@ -60,7 +64,8 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The start date.
 		/// </value>
-		public DateTime StartDate { get; set; }
+		[DateStartToday(ErrorMessage = "Please select a date today or greater.")]
+		public DateTime StartDate { get; set; } = DateTime.Today;
 
 		/// <summary>
 		/// Gets or sets the end date.
@@ -68,7 +73,8 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The end date.
 		/// </value>
-		public DateTime EndDate { get; set; }
+		[DateStartToday(ErrorMessage = "Please select a date today or greater.")]
+		public DateTime EndDate { get; set; } = DateTime.Today.AddDays(1);
 
 		/// <summary>
 		/// Gets or sets the activities.

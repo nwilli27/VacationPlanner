@@ -1,0 +1,31 @@
+﻿@model VacationStepTwoViewModel
+
+@{
+    ViewData["title"] = "Step 2 - New Vacation";
+}
+
+<h1 class="text-center">Add Things To Do in @Model.Vacation?.Location.Name</h1>
+
+<div class="container">
+    <form asp-action="StepTwo" method="post">
+
+        <input type="hidden" asp-for="@Model.Vacation.VacationId" />
+        <input type="hidden" asp-for="@Model.Vacation.LocationId" />
+        <input type="hidden" asp-for="@Model.Vacation.AccommodationId" />
+        <input type="hidden" asp-for="@Model.Vacation.EndDate" />
+        <input type="hidden" asp-for="@Model.Vacation.StartDate" />
+
+        <div class="form-group">
+            <label>Hold down the CTRL key to select multiple items</label>
+            <select asp-for="SelectedActivities" class="form-control"
+                    asp-items='@new MultiSelectList(@Model.Activities, "ActivityId", "Name", Model.SelectedActivities)'>
+            </select>
+            <span asp-validation-for="SelectedActivities" class="text-danger"></span>
+        </div>
+
+        <div class="row ml-1">
+            <button type="submit" class="btn btn-dark mr-1">Save</button>
+            <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+        </div>
+    </form>
+</div>

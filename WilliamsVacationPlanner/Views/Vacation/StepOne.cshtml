@@ -1,0 +1,57 @@
+﻿@model VacationStepOneViewModel
+
+@{
+    ViewData["title"] = "Step 1 - New Vacation";
+}
+
+<h1 class="text-center">Add Location, Accommodation, and Dates</h1>
+
+<div class="container">
+    <form asp-action="StepOne" method="post">
+
+        <input type="hidden" asp-for="@Model.Vacation.VacationId" />
+        <input type="hidden" asp-for="@Model.Vacation.Location" />
+
+        <div class="form-group">
+            <label>Location</label>
+            <select asp-for="@Model.Vacation.LocationId" class="form-control">
+                <option value="-1">Select a Location</option>
+                @foreach (var location in Model.Locations)
+                {
+                    <option value="@location.LocationId">@location.Name</option>
+                }
+            </select>
+            <span asp-validation-for="@Model.Vacation.LocationId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Accommodation</label>
+            <select asp-for="@Model.Vacation.AccommodationId" class="form-control">
+                <option value="-1">Select a Accommodation</option>
+                @foreach (var accommodation in Model.Accommodations)
+                {
+                    <option value="@accommodation.AccommodationId">@accommodation.Name</option>
+                }
+            </select>
+            <span asp-validation-for="@Model.Vacation.AccommodationId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Location</label>
+            <input asp-for="@Model.Vacation.StartDate" class="form-control" type="date" />
+            <span asp-validation-for="@Model.Vacation.StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label>Location</label>
+            <input asp-for="@Model.Vacation.EndDate" class="form-control" type="date" />
+            <span asp-validation-for="@Model.Vacation" class="text-danger"></span>
+        </div>
+
+        <div class="row ml-1">
+            <button type="submit" class="btn btn-dark mr-1">Next</button>
+            <a asp-action="Index" class="btn btn-outline-dark">Cancel</a>
+        </div>
+    </form>
+</div>
+

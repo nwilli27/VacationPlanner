@@ -59,5 +59,12 @@ namespace WilliamsVacationPlanner.Models
 		/// Saves this instance.
 		/// </summary>
 		void Save();
+
+		/// <summary>
+		/// Adds the vacation activities.
+		/// </summary>
+		/// <param name="vacation">The vacation.</param>
+		/// <param name="activityIds">The activity ids.</param>
+		void AddVacationActivities(Vacation vacation, int[] activityIds);
 	}
 }
