@@ -85,6 +85,39 @@ namespace WilliamsVacationPlanner.Controllers
 		}
 
 		/// <summary>
+		/// Returns the Delete confirmation view.
+		/// </summary>
+		/// <param name="id">The identifier.</param>
+		/// <returns>The delete confirmation view</returns>
+		public IActionResult Delete(int id)
+		{
+			var vacation = this.data.Vacations.Get(
+				new QueryOptions<Vacation>() 
+				{ 
+					Includes = "Location", 
+					Where = v => v.VacationId == id
+				});
+			return View(vacation);
+		}
+
+		/// <summary>
+		/// Deletes the specified vacation.
+		/// </summary>
+		/// <param name="vacation">The vacation.</param>
+		/// <returns>Redirect to list view.</returns>
+		[HttpPost]
+		public IActionResult Delete(Vacation vacation)
+		{
+			this.addConfirmationMessage($"Successfully deleted vacation at {vacation.Location.Name} on {vacation.StartDate.ToShortDateString()} thru {vacation.EndDate.ToShortDateString()}.");
+
+			vacation.Location = null;
+			this.data.Vacations.Delete(vacation);
+			this.data.Save();
+			
+			return RedirectToAction("List");
+		}
+
+		/// <summary>
 		/// Step one action. Returns StepOne view.
 		/// </summary>
 		/// <returns>Step one view.</returns>
@@ -110,7 +143,7 @@ namespace WilliamsVacationPlanner.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				viewModel.Vacation.Location = data.Locations.Get(new QueryOptions<Location>() { Where = l => l.LocationId == viewModel.Vacation.LocationId });
+				viewModel.Vacation.Location = data.Locations.Get(viewModel.Vacation.LocationId);
 				TempData.Put("Vacation", viewModel.Vacation);
 
 				return RedirectToAction("StepTwo");
@@ -129,6 +162,16 @@ namespace WilliamsVacationPlanner.Controllers
 		}
 
 		/// <summary>
+		/// Redirects back to List view with error message.
+		/// </summary>
+		/// <returns>Redirect back to List view</returns>
+		public IActionResult CancelAddVacation()
+		{
+			this.addErrorMessage("You cancelled the progress of adding a new vacation.");
+			return RedirectToAction("List");
+		}
+
+		/// <summary>
 		/// Step two action. Returns Steptwo view.
 		/// </summary>
 		/// <returns>Step two view.</returns>
@@ -138,6 +181,7 @@ namespace WilliamsVacationPlanner.Controllers
 
 			if (vacation == null)
 			{
+				this.addErrorMessage("Refreshing cancelled the progress of adding a new vacation.");
 				return RedirectToAction("List");
 			}
 			else
@@ -169,11 +213,14 @@ namespace WilliamsVacationPlanner.Controllers
 				data.AddVacationActivities(viewModel.Vacation, viewModel.SelectedActivities);
 				data.Save();
 
+				var location = data.Locations.Get(viewModel.Vacation.LocationId);
+				this.addConfirmationMessage($"Successfully added new vacation at {location.Name} on {viewModel.Vacation.StartDate.ToShortDateString()} thru {viewModel.Vacation.EndDate.ToShortDateString()}.");
+
 				return RedirectToAction("List");
 			}
 			else
 			{
-				viewModel.Vacation.Location = data.Locations.Get(new QueryOptions<Location>() { Where = l => l.LocationId == viewModel.Vacation.LocationId });
+				viewModel.Vacation.Location = data.Locations.Get(viewModel.Vacation.LocationId);
 				var stepTwoViewModel = new VacationStepTwoViewModel()
 				{
 					Vacation = viewModel.Vacation,
@@ -183,6 +230,16 @@ namespace WilliamsVacationPlanner.Controllers
 
 				return View(stepTwoViewModel);
 			}
+		}
+
+		private void addConfirmationMessage(string message)
+		{
+			TempData["ConfirmationMessage"] = message;
+		}
+
+		private void addErrorMessage(string message)
+		{
+			TempData["ErrorMessage"] = message;
 		}
 	}
 }
