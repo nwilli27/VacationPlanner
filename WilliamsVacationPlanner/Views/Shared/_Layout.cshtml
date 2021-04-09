@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var confirmationMessage = TempData?["ConfirmationMessage"]?.ToString() ?? string.Empty;
+    var errorMessage = TempData?["ErrorMessage"]?.ToString() ?? string.Empty;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,7 +24,7 @@
                 <a class="nav-link font-weight-bold" asp-controller="Vacation" asp-action="Index">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link font-weight-bold" asp-controller="Vacation" asp-action="StepOne">Add Trip</a>
+                <a class="nav-link font-weight-bold" asp-controller="Vacation" asp-action="StepOne">Add Vacation</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link font-weight-bold" asp-controller="Manage" asp-action="Index">Manage</a>
@@ -28,6 +33,26 @@
     </div>
     <div class="container">
         <main role="main" class="pb-3">
+
+            @if (confirmationMessage != string.Empty)
+            {
+                <div class="alert alert-success alert-dismissible fade show container" role="alert">
+                    @confirmationMessage
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+            @if (errorMessage != string.Empty)
+            {
+                <div class="alert alert-danger alert-dismissible fade show container" role="alert">
+                    @errorMessage
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+
             @RenderBody()
         </main>
     </div>

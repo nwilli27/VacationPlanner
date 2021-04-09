@@ -53,6 +53,12 @@ namespace WilliamsVacationPlanner.Models
 		T Get(string id);
 
 		/// <summary>
+		/// Detaches the tracking.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		void DetachTracking(T entity);
+
+		/// <summary>
 		/// Inserts the specified entity.
 		/// </summary>
 		/// <param name="entity">The entity.</param>

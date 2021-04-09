@@ -86,6 +86,12 @@ namespace WilliamsVacationPlanner.Models
 		}
 
 		/// <summary>
+		/// Detaches the tracking.
+		/// </summary>
+		/// <param name="entity">The entity.</param>
+		public virtual void DetachTracking(T entity) => context.Entry(entity).State = EntityState.Detached;
+
+		/// <summary>
 		/// Inserts the specified entity.
 		/// </summary>
 		/// <param name="entity">The entity.</param>

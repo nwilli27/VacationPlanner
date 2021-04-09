@@ -29,7 +29,6 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The name.
 		/// </value>
-		[Required(ErrorMessage = "Please enter a name.")]
 		public string Name { get; set; }
 
 		/// <summary>
@@ -38,6 +37,7 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The phone.
 		/// </value>
+		[RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Entered phone number format is not valid.")]
 		public string Phone { get; set; }
 
 		/// <summary>
@@ -46,6 +46,7 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The email.
 		/// </value>
+		[EmailAddress(ErrorMessage = "Entered email format is not valid.")]
 		public string Email { get; set; }
 	}
 }

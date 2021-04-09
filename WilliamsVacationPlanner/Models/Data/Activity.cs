@@ -29,7 +29,6 @@ namespace WilliamsVacationPlanner.Models
 		/// <value>
 		/// The name.
 		/// </value>
-		[Required(ErrorMessage = "Please enter a name.")]
 		public string Name { get; set; }
 	}
 }

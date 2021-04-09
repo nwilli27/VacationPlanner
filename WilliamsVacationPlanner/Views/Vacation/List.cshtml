@@ -28,6 +28,7 @@
                     <a asp-action="List" asp-all-route-data="@routes" class="text-white">Accommodation</a>
                 </th>
                 <th>Things To Do</th>
+                <th></th>
             </tr>
         </thead>
         @foreach (var vacation in @Model.Vacations)
@@ -36,7 +37,7 @@
                 <td>@vacation.Location.Name</td>
                 <td>@vacation.StartDate.ToShortDateString()</td>
                 <td>@vacation.EndDate.ToShortDateString()</td>
-                <td>@vacation.Accommodation.Name</td>
+                <td>@vacation.Accommodation?.Name</td>
                 <td>
                     <ul class="list-unstyled">
                         @foreach (var activity in @vacation.Activities)
@@ -44,6 +45,10 @@
                             <li>@activity.Activity.Name</li>
                         }
                     </ul>
+                </td>
+                <td>
+                    <a asp-action="Delete" class="btn btn-danger"
+                       asp-route-id="@vacation.VacationId">Delete</a>
                 </td>
             </tr>
         }
