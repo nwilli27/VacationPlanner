@@ -266,6 +266,7 @@ namespace WilliamsVacationPlanner.Controllers
 				{
 					AccommodationToAdd = new Accommodation(),
 					ActivityToAdd = new Activity(),
+					LocationToAdd = new Location(),
 					LocationToDelete = new Location(),
 					AccommodationToDelete = new Accommodation(),
 					ActivityToDelete = new Activity(),
@@ -280,6 +281,7 @@ namespace WilliamsVacationPlanner.Controllers
 				{
 					AccommodationToAdd = prevViewModel.AccommodationToAdd,
 					ActivityToAdd = prevViewModel.ActivityToAdd,
+					LocationToAdd = prevViewModel.LocationToAdd,
 					LocationToDelete = prevViewModel.LocationToDelete,
 					AccommodationToDelete = prevViewModel.AccommodationToDelete,
 					ActivityToDelete = prevViewModel.ActivityToDelete,
